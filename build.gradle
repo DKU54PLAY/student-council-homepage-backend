@@ -19,18 +19,26 @@ repositories {
 }
 
 dependencies {
-	//DB
+	// DB
 	
 	implementation 'com.h2database:h2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	
-	//Spring-Boot-Starter
+	// Spring-Boot-Starter
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
-	//Lombok
+
+	// Spring-Security
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.0'
+	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.0'
+	implementation group: 'org.springframework.security', name: 'spring-security-oauth2-core', version: '5.7.0'
+
+	// JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
