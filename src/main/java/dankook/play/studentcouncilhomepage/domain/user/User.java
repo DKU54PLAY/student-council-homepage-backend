@@ -1,8 +1,9 @@
-package dankook.play.studentcouncilhomepage.domain;
+package dankook.play.studentcouncilhomepage.domain.user;
 
 import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
+import dankook.play.studentcouncilhomepage.domain.BaseEntity;
 import dankook.play.studentcouncilhomepage.domain.enumulation.Department;
 import javax.persistence.Column;
 import javax.persistence.Entity;
