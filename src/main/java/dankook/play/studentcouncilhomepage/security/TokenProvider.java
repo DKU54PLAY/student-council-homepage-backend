@@ -1,5 +1,6 @@
 package dankook.play.studentcouncilhomepage.security;
 
+import dankook.play.studentcouncilhomepage.exception.ApplicationException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,18 +31,11 @@ public class TokenProvider {
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(secretKey.getJwtSecretKey()).parseClaimsJws(authToken);
-            return true;
-        } catch (SignatureException e) {
-            log.info("유효하지 않은 JWT signature 입니다");
-        } catch (ExpiredJwtException e) {
-            log.info("유효기간이 지난 JWT 토큰 입니다");
-        } catch (MalformedJwtException | IllegalArgumentException e) {
-            log.info("유효하지 않은 JWT 토큰 입니다");
-        } catch (UnsupportedJwtException e) {
-            log.info("지원하지 않는 JWT 토큰 입니다");
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey.getJwtSecretKey()).parseClaimsJws(authToken);
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new ApplicationException(AuthExceptionSet.INVALID_TOKEN);
         }
-        return false;
     }
 
     public String extractUserEmailFromToken(String token) {

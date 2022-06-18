@@ -1,30 +1,33 @@
 package dankook.play.studentcouncilhomepage.security;
 
 import dankook.play.studentcouncilhomepage.domain.user.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
-@RequiredArgsConstructor
 public class UserAuthPrinciple implements UserDetails, OAuth2User {
 
     private final User user;
     private Map<String, Object> attributes;
+
+    private UserAuthPrinciple(User user) {
+        this.user = user;
+    }
+
+    private UserAuthPrinciple(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
+    }
 
     public static UserAuthPrinciple create(User user) {
         return new UserAuthPrinciple(user);
     }
 
     public static UserAuthPrinciple create(User user, Map<String, Object> attributes) {
-        UserAuthPrinciple userAuthPrinciple = UserAuthPrinciple.create(user);
-        userAuthPrinciple.setAttributes(attributes);
-        return userAuthPrinciple;
+        return new UserAuthPrinciple(user, attributes);
     }
 
     public void setAttributes(Map<String, Object> attributes) {

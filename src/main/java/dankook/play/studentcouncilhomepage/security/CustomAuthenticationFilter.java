@@ -19,10 +19,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws
             AuthenticationException {
-        if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException("올바르지 않은 인증 method 입니다." + request.getMethod());
-        }
 
+        checkRequest(request);
         LoginRequest loginRequest;
 
         try {
@@ -33,14 +31,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         String userEmail = loginRequest.getEmail();
         String userPassword = loginRequest.getPassword();
-
-        if (userEmail == null) {
-            userEmail = "";
-        }
-
-        if (userPassword == null) {
-            userPassword = "";
-        }
         userEmail = userEmail.trim();
 
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
@@ -48,5 +38,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         setDetails(request, authRequest);
         return this.getAuthenticationManager().authenticate(authRequest);
+    }
+
+    void checkRequest(HttpServletRequest request) {
+        if (!request.getMethod().equals("POST")) {
+            throw new AuthenticationServiceException("올바르지 않은 인증 method 입니다." + request.getMethod());
+        }
     }
 }
