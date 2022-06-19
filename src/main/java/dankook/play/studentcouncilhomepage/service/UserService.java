@@ -25,10 +25,6 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-//    public List<User> findUsers() {
-//        return userRepository.findAll();
-//    }
-
     public User findOne(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
