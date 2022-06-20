@@ -40,7 +40,7 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
-    public void updateUser(String phoneNumber, Department department, String imageUrl){
+    public void userUpdate(String phoneNumber, Department department, String imageUrl) {
         if(phoneNumber != null) { this.phoneNumber = phoneNumber; }
         if(department != null) { this.department = department; }
         if(imageUrl != null) { this.imageUrl = imageUrl; }

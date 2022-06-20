@@ -49,7 +49,7 @@ public class UserService {
 
     private void updateUser(User user, String phoneNumber, Department department, String imageUrl, boolean status) {
         if(status) {
-            user.updateUser(phoneNumber, department, imageUrl);
+            user.userUpdate(phoneNumber, department, imageUrl);
         }
         // TODO : 비밀번호가 다를 경우 Response
     }
