@@ -10,6 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UpdateUserRequest {
     private Long id;
+    private String password;
     private String phoneNumber;
     private Department department;
     private String imageUrl;

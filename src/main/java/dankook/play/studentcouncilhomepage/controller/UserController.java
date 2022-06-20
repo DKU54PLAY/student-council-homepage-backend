@@ -29,9 +29,9 @@ public class UserController {
         return ResponseEntity.ok(userService.signUp(signUpRequest));
     }
 
-    @GetMapping("/{userIdx}")
-    public ResponseEntity<UserDto> findById(@PathVariable("userIdx") Long userIdx) {
-        User user = userService.findOne(userIdx);
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto> findById(@PathVariable("userId") Long userId) {
+        User user = userService.findOne(userId);
         UserDto userDto = new UserDto(user);
         return ResponseEntity.ok(userDto);
     }
@@ -45,7 +45,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<DeleteUserResponse> deleteUser(@Valid @RequestBody DeleteUserRequest request) {
-        DeleteUserResponse response = userService.deleteUser(request);
+        DeleteUserResponse response = userService.delete(request);
         return ResponseEntity.ok(response);
     }
 }

@@ -40,20 +40,11 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
-    public User(String id, String userName, String phoneNumber, String password, String email, Department department, String imageUrl) {
-        super();
-    }
-
     public void updateUser(String phoneNumber, Department department, String imageUrl){
         if(phoneNumber != null) { this.phoneNumber = phoneNumber; }
         if(department != null) { this.department = department; }
         if(imageUrl != null) { this.imageUrl = imageUrl; }
     }
-
-    public void updatePassword(String password) {
-        if(password != null) { this.password = password; }
-    }
-
 
 }
 

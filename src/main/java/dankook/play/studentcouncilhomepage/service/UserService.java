@@ -32,39 +32,45 @@ public class UserService {
 
     @Transactional
     public SignUpResponse signUp(SignUpRequest signUpRequest) {
-        User user = signUpRequest.toUserEnity();
+        User user = signUpRequest.toUserEnitiy();
         userRepository.save(user);
         return new SignUpResponse(user.getId());
     }
 
     @Transactional
     public UpdateUserResponse update(UpdateUserRequest request) {
-        updateUser(request.getId(), request.getPhoneNumber(), request.getDepartment(), request.getImageUrl());
-        User user = findOne(request.getId());
-        return new UpdateUserResponse(user.getPhoneNumber(), request.getDepartment(), request.getImageUrl());
+        User user = userRepository.findById(request.getId())
+                .orElseThrow(NoSuchElementException::new);
+        boolean status = checkPassword(user.getPassword(), request.getPassword());
+        updateUser(user, request.getPhoneNumber(), request.getDepartment(), request.getImageUrl(), status);
+        user = findOne(request.getId());
+        return new UpdateUserResponse(user);
     }
 
-
-    private void updateUser(Long id, String phoneNumber, Department department, String imageUrl) {
-        final User user = userRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-
-        user.updateUser(phoneNumber, department, imageUrl);
+    private void updateUser(User user, String phoneNumber, Department department, String imageUrl, boolean status) {
+        if(status) {
+            user.updateUser(phoneNumber, department, imageUrl);
+        }
+        // TODO : 비밀번호가 다를 경우 Response
     }
 
     @Transactional
-    public DeleteUserResponse deleteUser(DeleteUserRequest request){
+    public DeleteUserResponse delete(DeleteUserRequest request){
         User user = userRepository.findById(request.getId())
                 .orElseThrow(NoSuchElementException::new);
-        DeleteUserResponse deleteUserResponse = new DeleteUserResponse(checkPassword(user.getPassword(), request.getPassword()));
-        if(deleteUserResponse.getStatus()) {
-            userRepository.delete(user);
-        }
-        return deleteUserResponse;
+        boolean status = checkPassword(user.getPassword(), request.getPassword());
+        deleteUser(user, status);
+        return new DeleteUserResponse(status);
     }
 
-    public static boolean checkPassword(String originPassword, String comparePassword) {
-        System.out.println(originPassword + "<>" + comparePassword);
+    private void deleteUser(User user, boolean status) {
+        if(status) {
+            userRepository.delete((user));
+        }
+        // TODO : 비밀번호가 다를 경우 Response
+    }
+
+    public boolean checkPassword(String originPassword, String comparePassword) {
         return originPassword.equals(comparePassword);
     }
 

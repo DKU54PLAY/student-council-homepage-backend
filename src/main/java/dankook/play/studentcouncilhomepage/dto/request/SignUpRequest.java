@@ -18,7 +18,7 @@ public class SignUpRequest {
     private Department department;
     private String imageUrl;
 
-    public User toUserEnity() {
+    public User toUserEnitiy() {
         return new User(this.id, this.userName, this.phoneNumber, this.email, this.password, this.department, this.imageUrl);
     }
 }

@@ -6,14 +6,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
+@AllArgsConstructor
 public class DeleteUserResponse {
     private boolean status;
-
-    public DeleteUserResponse(boolean status) {
-        this.status = status;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
 }
