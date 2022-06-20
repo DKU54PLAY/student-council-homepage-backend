@@ -28,6 +28,8 @@ public class User extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    private String userName;
+
     private String phoneNumber;
 
     private String email;
