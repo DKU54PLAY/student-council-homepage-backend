@@ -1,10 +1,12 @@
-package dankook.play.studentcouncilhomepage.domain;
+package dankook.play.studentcouncilhomepage.application.domain;
 
 import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
-import dankook.play.studentcouncilhomepage.domain.enumulation.Department;
+import dankook.play.studentcouncilhomepage.application.domain.enumulation.Department;
+import dankook.play.studentcouncilhomepage.application.domain.vo.Password;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -31,11 +33,15 @@ public class User extends BaseEntity {
 
     private String email;
 
-    private String password;
+    @Embedded
+    private Password password;
 
     @Enumerated(STRING)
     private Department department;
 
     private String imageUrl;
 
+    public void checkCorrectPassword(String targetPassword) {
+        password.checkSamePassword(targetPassword);
+    }
 }
