@@ -1,16 +1,18 @@
 package dankook.play.studentcouncilhomepage.application.service;
 
-import static dankook.play.studentcouncilhomepage.UserFixture.SAMPLE_USER;
+import static dankook.play.studentcouncilhomepage.UserFixture.USER_REQUEST;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import dankook.play.studentcouncilhomepage.application.domain.User;
+import dankook.play.studentcouncilhomepage.application.dto.user.request.UserRequest;
 import dankook.play.studentcouncilhomepage.application.dto.user.response.UserResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
+@Sql("/truncate.sql")
 class UserServiceTest {
 
     private final UserService userService;
@@ -24,14 +26,14 @@ class UserServiceTest {
     @Test
     public void findByEmail() {
         // given
-        final User user = SAMPLE_USER;
-        userService.save(user);
+        final UserRequest request = USER_REQUEST;
+        final Long savedId = userService.save(request);
 
         // when
-        final UserResponse userResponse = userService.findByEmail(user.getEmail());
+        final UserResponse userResponse = userService.findByEmail(request.getEmail());
 
         // then
-        assertThat(user)
+        assertThat(request)
                 .extracting("email", "username", "phoneNumber", "department", "imageUrl")
                 .contains(userResponse.getEmail(), userResponse.getUsername(), userResponse.getPhoneNumber(),
                         userResponse.getDepartment(), userResponse.getImageUrl());
@@ -41,14 +43,13 @@ class UserServiceTest {
     @Test
     public void findById() {
         // given
-        final User user = SAMPLE_USER;
-        final Long savedId = userService.save(user);
+        final Long savedId = userService.save(USER_REQUEST);
 
         // when
         final UserResponse userResponse = userService.findById(savedId);
 
         // then
-        assertThat(user)
+        assertThat(USER_REQUEST)
                 .extracting("email", "username", "phoneNumber", "department", "imageUrl")
                 .contains(userResponse.getEmail(), userResponse.getUsername(), userResponse.getPhoneNumber(),
                         userResponse.getDepartment(), userResponse.getImageUrl());
@@ -58,7 +59,7 @@ class UserServiceTest {
     @Test
     public void save() {
         // given & when
-        final Long savedId = userService.save(SAMPLE_USER);
+        final Long savedId = userService.save(USER_REQUEST);
 
         // then
         final UserResponse userResponse = userService.findById(savedId);

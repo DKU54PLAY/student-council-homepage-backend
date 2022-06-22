@@ -43,13 +43,13 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
-    public User(String email, Password password, String username, String phoneNumber, Department department,
+    public User(String email, String password, String username, String phoneNumber, String department,
                 String imageUrl) {
         this.email = email;
-        this.password = password;
+        this.password = new Password(password);
         this.username = username;
         this.phoneNumber = phoneNumber;
-        this.department = department;
+        this.department = Department.of(department);
         this.imageUrl = imageUrl;
     }
 

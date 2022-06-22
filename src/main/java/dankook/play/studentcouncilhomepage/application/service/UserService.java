@@ -1,6 +1,7 @@
 package dankook.play.studentcouncilhomepage.application.service;
 
 import dankook.play.studentcouncilhomepage.application.domain.User;
+import dankook.play.studentcouncilhomepage.application.dto.user.request.UserRequest;
 import dankook.play.studentcouncilhomepage.application.dto.user.response.UserResponse;
 import dankook.play.studentcouncilhomepage.application.exception.NotExistException;
 import dankook.play.studentcouncilhomepage.application.repository.UserRepository;
@@ -30,8 +31,15 @@ public class UserService {
     }
 
     @Transactional
-    public Long save(User user) {
+    public Long save(UserRequest request) {
+        final User user = userFromRequest(request);
         final User savedUser = userRepository.save(user);
+
         return savedUser.getId();
+    }
+
+    private User userFromRequest(UserRequest request) {
+        return new User(request.getEmail(), request.getPassword(), request.getUsername(),
+                request.getPhoneNumber(), request.getDepartment(), request.getImageUrl());
     }
 }
