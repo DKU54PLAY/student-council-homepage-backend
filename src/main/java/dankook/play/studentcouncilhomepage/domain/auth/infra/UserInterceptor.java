@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserInterceptor extends AbstractInterceptor {
 
     private final TokenProvider tokenProvider;
+
     @Override
     boolean process(HttpServletRequest request) {
         String token = AuthorizationExtractor.extract(request);
