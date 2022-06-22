@@ -27,6 +27,7 @@ dependencies {
 
 	// db
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.h2database:h2'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
