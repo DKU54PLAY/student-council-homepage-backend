@@ -29,17 +29,29 @@ public class User extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    private String phoneNumber;
-
     private String email;
 
     @Embedded
     private Password password;
 
+    private String username;
+
+    private String phoneNumber;
+
     @Enumerated(STRING)
     private Department department;
 
     private String imageUrl;
+
+    public User(String email, Password password, String username, String phoneNumber, Department department,
+                String imageUrl) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+        this.department = department;
+        this.imageUrl = imageUrl;
+    }
 
     public void checkCorrectPassword(String targetPassword) {
         password.checkSamePassword(targetPassword);

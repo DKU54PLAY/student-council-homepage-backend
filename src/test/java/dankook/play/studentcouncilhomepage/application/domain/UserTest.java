@@ -1,8 +1,8 @@
 package dankook.play.studentcouncilhomepage.application.domain;
 
+import static dankook.play.studentcouncilhomepage.application.domain.enumulation.Department.COMPUTER_ENGINEERING;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import dankook.play.studentcouncilhomepage.application.domain.enumulation.Department;
 import dankook.play.studentcouncilhomepage.application.domain.vo.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +14,8 @@ class UserTest {
     public void checkCorrectPassword() {
         // given
         final Password password = new Password("password1!");
-        final User user = new User(1L, "010-2966-1498", "email@email.com",
-                password, Department.COMPUTER_ENGINEERING, "imageUrl");
+        final User user = new User(1L, "email@email.com", password, "username",
+                "010-1111-1111", COMPUTER_ENGINEERING, "imageUrl");
 
         // when & then
         assertThatThrownBy(() -> user.checkCorrectPassword("incorrectPassword1!"));

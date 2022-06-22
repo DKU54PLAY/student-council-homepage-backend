@@ -1,16 +1,23 @@
 spring:
-  sql:
-    init:
-      mode: always
-  datasource:
-    url: jdbc:h2:~/test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
   h2:
     console:
       enabled: true
+  datasource:
+    url: jdbc:h2:~/test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 security:
   jwt:
     token:
-      secret-key: secret-key
+      secret-key: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
       expire-length: 3600000
