@@ -1,10 +1,10 @@
-package dankook.play.studentcouncilhomepage.domain.user;
+package dankook.play.studentcouncilhomepage.domain.user.entity;
 
 import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
-import dankook.play.studentcouncilhomepage.domain.BaseEntity;
-import dankook.play.studentcouncilhomepage.domain.enumulation.Department;
+import dankook.play.studentcouncilhomepage.domain.user.entity.enumulation.Department;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -34,11 +34,24 @@ public class User extends BaseEntity {
 
     private String email;
 
-    private String password;
+    private Password password;
 
     @Enumerated(STRING)
     private Department department;
 
     private String imageUrl;
 
+    public User(String email, String password, String userName, String phoneNumber, String department,
+                String imageUrl) {
+        this.email = email;
+        this.password = new Password(password);
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
+        this.department = Department.of(department);
+        this.imageUrl = imageUrl;
+    }
+
+    public void checkCorrectPassword(String targetPassword) {
+        password.checkSamePassword(targetPassword);
+    }
 }
