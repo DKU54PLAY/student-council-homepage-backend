@@ -1,5 +1,6 @@
-package dankook.play.studentcouncilhomepage.domain.user;
+package dankook.play.studentcouncilhomepage.domain.user.repository;
 
+import dankook.play.studentcouncilhomepage.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

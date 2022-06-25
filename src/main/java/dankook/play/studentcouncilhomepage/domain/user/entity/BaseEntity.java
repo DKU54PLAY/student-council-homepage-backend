@@ -1,4 +1,4 @@
-package dankook.play.studentcouncilhomepage.domain;
+package dankook.play.studentcouncilhomepage.domain.user.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -21,4 +21,3 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 }
-
